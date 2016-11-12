@@ -9,7 +9,7 @@
 	    <property name="ipFinder">
 		<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.s3.TcpDiscoveryS3IpFinder">
 		    <property name="awsCredentials" ref="aws.creds"/>
-		    <property name="bucketName" value="il-83-bucket.s3-website.eu-central-1.amazonaws.com"/>
+		    <property name="bucketName" value="${ES_BUCKET}"/>
 		</bean>
 	    </property>
 	</bean>
@@ -18,8 +18,8 @@
  
  <!-- AWS credentials. Provide your access key ID and secret access key. -->
  <bean id="aws.creds" class="com.amazonaws.auth.BasicAWSCredentials">
-    <constructor-arg value="AKIAJNGJ4ISCKX77TE3A" />
-    <constructor-arg value="ZNH3vcEfEWGBuR7AjgOcPwR/7zgrVg7wroowXPqw" />
+    <constructor-arg value="${AWS_ACCESS_KEY}" />
+    <constructor-arg value="${AWS_SECRET_KEY}" />
  </bean>
 
 </beans>
