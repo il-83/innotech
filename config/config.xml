@@ -3,23 +3,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+  <bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+  </bean>
+
   <bean id="grid.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+    <property name="peerClassLoadingEnabled" value="false"/>
+
     <property name="discoverySpi">
-	<bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-	    <property name="ipFinder">
-		<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.s3.TcpDiscoveryS3IpFinder">
-		    <property name="awsCredentials" ref="aws.creds"/>
-		    <property name="bucketName" value="${ES_BUCKET}"/>
-		</bean>
-	    </property>
-	</bean>
+      <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="ipFinder">
+          <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.s3.TcpDiscoveryS3IpFinder">
+            <property name="awsCredentials" ref="aws.creds"/>
+            <property name="bucketName" value="${ES_BUCKET}"/>
+          </bean>
+        </property>
+      </bean>
     </property>
   </bean>
- 
- <!-- AWS credentials. Provide your access key ID and secret access key. -->
- <bean id="aws.creds" class="com.amazonaws.auth.BasicAWSCredentials">
+
+  <!-- AWS credentials. Provide your access key ID and secret access key. -->
+  <bean id="aws.creds" class="com.amazonaws.auth.BasicAWSCredentials">
     <constructor-arg value="${AWS_ACCESS_KEY}" />
     <constructor-arg value="${AWS_SECRET_KEY}" />
- </bean>
+  </bean>
 
 </beans>
