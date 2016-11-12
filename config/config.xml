@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="grid.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+    <property name="discoverySpi">
+	<bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+	    <property name="ipFinder">
+		<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.s3.TcpDiscoveryS3IpFinder">
+		    <property name="awsCredentials" ref="aws.creds"/>
+		    <property name="bucketName" value="il-83-bucket.s3-website.eu-central-1.amazonaws.com"/>
+		</bean>
+	    </property>
+	</bean>
+    </property>
+  </bean>
+ 
+ <!-- AWS credentials. Provide your access key ID and secret access key. -->
+ <bean id="aws.creds" class="com.amazonaws.auth.BasicAWSCredentials">
+    <constructor-arg value="AKIAJNGJ4ISCKX77TE3A" />
+    <constructor-arg value="ZNH3vcEfEWGBuR7AjgOcPwR/7zgrVg7wroowXPqw" />
+ </bean>
+
+</beans>
